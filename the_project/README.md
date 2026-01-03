@@ -5,18 +5,46 @@
 **Solution**
 
 1. Create kubernetes deployment object
-    ```bash
-    kubectl create deployment server-dep --image=nickleezx/the_project:0.0.1
-    ```
+   ```bash
+   kubectl create deployment server-dep --image=nickleezx/the_project:0.0.1
+   ```
 2. Check status of deployment
-    ```bash
-    kubectl get pods
-    ```
+
+   ```bash
+   kubectl get pods
+   ```
 
 3. Check logs
-    ```bash
-    kubectl logs -f server-dep-bdcddb694-fjdlj
-    ```
-    _Note: replace server-dep-bdcddb694-fjdlj with pod name_
 
-    ![Ex1.2](./Ex1.2.png)
+   ```bash
+   kubectl logs -f server-dep-bdcddb694-fjdlj
+   ```
+
+   _Note: replace server-dep-bdcddb694-fjdlj with pod name_
+
+   ![Ex1.2](./Ex1_2.png)
+
+## Exercise 1.4
+
+**Instructions**: Create a deployment.yaml for the course project (that you started in Exercise 1.2.)
+
+**Solution**:
+
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: express-server-dep
+    spec:
+      selector:
+        matchLabels:
+          app: express-server
+      template:
+        metadata:
+          labels:
+            app: express-server
+        spec:
+          containers:
+            - name: myapp
+              image: nickleezx/the_project
+
+![Ex1.4](./Ex1_4.png)

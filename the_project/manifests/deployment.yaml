@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-server-dep
+spec:
+  selector:
+    matchLabels:
+      app: express-server
+  template:
+    metadata:
+      labels:
+        app: express-server
+    spec:
+      containers:
+        - name: myapp
+          image: nickleezx/the_project

@@ -5,24 +5,26 @@
 **Solution**:
 
 1. Create kubernetes deployment object
-    ```bash
-    kubectl create deployment hashgenerator-dep --image=nickleezx/log_output
-    ```
+
+   ```bash
+   kubectl create deployment hashgenerator-dep --image=nickleezx/log_output
+   ```
 
 2. Check status of deployment
-    ```bash
-    kubectl get pods
-    ```
+
+   ```bash
+   kubectl get pods
+   ```
 
 3. Check logs
-    ```bash
-    kubectl logs -f hashgenerator-dep-5fcd7cf4d7-xjzp4
-    ```
-    _Note: replace hashgenerator-dep-5fcd7cf4d7-xjzp4 with pod name_
-  
 
-    ![Ex1.1](./Ex1.1.png)
+   ```bash
+   kubectl logs -f hashgenerator-dep-5fcd7cf4d7-xjzp4
+   ```
 
+   _Note: replace hashgenerator-dep-5fcd7cf4d7-xjzp4 with pod name_
+
+   ![Ex1.1](./Ex1_1.png)
 
 ## Exercise 1.3
 
@@ -48,4 +50,4 @@
                 - name: hashgenerator
                 image: nickleezx/log_output
 
-![Ex1.3](./Ex1.3.png)
+![Ex1.3](./Ex1_3.png)
