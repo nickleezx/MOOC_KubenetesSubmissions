@@ -1,4 +1,4 @@
-### Exercise 1.1
+## Exercise 1.1
 
 **Instructions**: Create an application that generates a random string on startup, stores this string into memory, and outputs it every 5 seconds with a timestamp. Deploy it into your Kubernetes cluster and confirm that it's running.
 
@@ -22,3 +22,30 @@
   
 
     ![Ex1.1](./Ex1.1.png)
+
+
+## Exercise 1.3
+
+**Instructions**: In your "Log output" application, create a folder for manifests and move your deployment into a declarative file. Make sure everything still works by restarting and following logs.
+
+**Solution**:
+
+    apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: hashgenerator-dep
+        spec:
+        replicas: 1
+        selector:
+            matchLabels:
+            app: hashgenerator
+        template:
+            metadata:
+            labels:
+                app: hashgenerator
+            spec:
+            containers:
+                - name: hashgenerator
+                image: nickleezx/log_output
+
+![Ex1.3](./Ex1.3.png)
