@@ -48,3 +48,11 @@
               image: nickleezx/the_project
 
 ![Ex1.4](./Ex1_4.png)
+
+## Exercise 1.5
+
+**Instructions**: Make the project respond something to a GET request sent to the / url of the project. A simple HTML page is good, or you can deploy something more complex, like a single-page application.
+
+**Solution**:
+
+![Ex1.5](./Ex1_5.png)

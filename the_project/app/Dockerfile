@@ -9,6 +9,4 @@ COPY . .
 
 RUN pnpm install --frozen-lockfile
 
-ENV PORT=3002
-
 CMD ["node", "index.js"]

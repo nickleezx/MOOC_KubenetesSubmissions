@@ -13,4 +13,8 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: nickleezx/the_project
+          image: nickleezx/the_project:0.0.2
+          env:
+            name: PORT
+            value: 3002
+
