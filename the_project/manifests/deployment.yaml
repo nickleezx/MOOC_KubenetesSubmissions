@@ -12,9 +12,9 @@ spec:
         app: express-server
     spec:
       containers:
-        - name: myapp
+        - name: express-server
           image: nickleezx/the_project:0.0.2
           env:
-            name: PORT
-            value: 3002
+            - name: PORT
+              value: "3002"
 

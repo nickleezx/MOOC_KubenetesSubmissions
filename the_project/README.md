@@ -56,3 +56,29 @@
 **Solution**:
 
 ![Ex1.5](./Ex1_5.png)
+
+## Exercise 1.6
+
+**Instructions**: Use a NodePort Service to enable access to the project.
+
+**Solution**:
+
+1. Create cluster with local port forwarded to node port
+    ```bash
+    k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
+    ```
+
+2. Deploy the application
+    ```bash
+    kubectl apply -f ./manifests/deployment.yaml  
+    ```
+
+3. Deploy the service
+    ```bash
+    kubectl apply -f ./manifests/service.yaml
+    ```
+
+4. Verify application and service running by visiting local port mapped to node
+    ```bash
+    http://localhost:8082
+    ```
