@@ -14,4 +14,8 @@ spec:
     spec:
       containers:
         - name: hashgenerator
-          image: nickleezx/log_output
+          image: nickleezx/log_output:0.0.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PORT
+              value: "3002"
