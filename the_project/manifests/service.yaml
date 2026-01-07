@@ -3,13 +3,11 @@ kind: Service
 metadata:
   name: express-server-svc
 spec:
-  type: NodePort
+  type: ClusterIP
   selector: 
     app: express-server
   ports:
-    - name: http
-      nodePort: 30080
-      protocol: TCP
+    - protocol: TCP
       port: 1234
       targetPort: 3002
   

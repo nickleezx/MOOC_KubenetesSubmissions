@@ -82,3 +82,45 @@
     ```bash
     http://localhost:8082
     ```
+
+## Exercise 1.8
+
+**Instructions**: Switch to using Ingress instead of NodePort to access the project. You can delete the Ingress of the "Log output" application so they don't interfere with this exercise. We'll look more into paths and routing in the next exercise, and at that point, you can configure the project to run with the "Log output" application side by side.
+
+**Solution**:
+
+1. Update ```service.yaml``` to use a cluster IP as identification 
+    ```bash
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: express-server-svc
+    spec:
+      type: ClusterIP
+      selector: 
+        app: express-server
+      ports:
+        - protocol: TCP
+          port: 1234
+          targetPort: 3002    
+    ```
+
+2. Create an ingress
+    ```bash
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: express-server-ingress
+    spec:
+      rules:
+        - http:
+            paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: express-server-svc
+                  port: 
+                    number: 1234
+    ```
+
