@@ -122,3 +122,18 @@
           protocol: TCP
           targetPort: 3002
     ```
+
+# Exercise 1.10
+
+**Instructions**: Split the "Log output" application into two different containers within a single pod: 
+- One generates a random string on startup and writes a line with the random string and timestamp every 5 seconds into a file.
+- The other reads that file and provides the content in the HTTP GET endpoint for the user to see
+
+**Solution**:
+1. Update log_output app to save result to file. Found in [log_output](./log-output-app/)
+
+2. Create new app /container that reads the "shared" file within the pod and displays in /file-content. Found in [file-reader](./file-reader-app/)
+
+3. Update `deployment.yaml`, `service.yaml` and `ingress.yaml` found in [manifests](./manifests/)
+
+4. Verify by lanching `localhost:8081/file-content` and exec into file-reader-app container within pod to check if volume was mounted

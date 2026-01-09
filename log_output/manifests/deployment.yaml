@@ -12,13 +12,28 @@ spec:
       labels:
         app: hashgenerator
     spec:
+      volumes:
+        - name: log-output-file
+          emptyDir: {}
       containers:
         - name: hashgenerator
-          image: nickleezx/log_output:0.0.1
+          image: nickleezx/log_output:0.0.5
           imagePullPolicy: IfNotPresent
           env:
             - name: PORT
               value: "3002"
+          volumeMounts:
+            - name: log-output-file
+              mountPath: /usr/src/app/shared
+        - name: file-reader-app
+          image: nickleezx/file-reader-app:0.0.8
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PORT
+              value: "3001"
+          volumeMounts:
+            - name: log-output-file
+              mountPath: /usr/src/app/shared
 
 ---
 apiVersion: apps/v1
@@ -42,4 +57,3 @@ spec:
           env:
             - name: PORT
               value: "3001"
-
