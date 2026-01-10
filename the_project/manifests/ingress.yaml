@@ -6,10 +6,17 @@ spec:
   rules:
     - http:
         paths:
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: the-project-svc
+              port:
+                number: 1234
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: express-server-svc
+              name: the-project-svc
               port: 
-                number: 1234
+                number: 2345

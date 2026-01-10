@@ -124,3 +124,16 @@
                     number: 1234
     ```
 
+## Exercise 1.12
+
+**Instructions**: Get a random picture from Lorem Picsum like https://picsum.photos/1200 and display it in the project. Find a way to store the image so it stays the same for 10 minutes. After 10 minutes have passed, you might give the old pic still one more time, and for the next request, there should be a new picture. Make sure to cache the image into a volume so that the API isn't needed for new images every time we access the application or the container crashes.
+
+**Solution**: 
+
+1. Create a frontend that will ping the backend for image. Found in [frontend/](./frontend/)
+
+2. Update [backend](./backend/) to download image and save to drive
+
+3. Update kubernetes resources (`persistentvolumeclaim.yaml`, `deployment.yaml`, `ingress.yaml`, `service.yaml`)
+
+4. Deploy on cluster and test by going to `localhost:8081` and `localhost:8081/api/images. Stop the deployment pod and check after 10 minutes to see changes.

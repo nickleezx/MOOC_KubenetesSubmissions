@@ -1,20 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: express-server-dep
+  name: the-project-dep
 spec:
   selector:
     matchLabels:
-      app: express-server
+      app: the-project
   template:
     metadata:
       labels:
-        app: express-server
+        app: the-project
     spec:
+      volumes: 
+        - name: image-pv
+          persistentVolumeClaim:
+            claimName: the-project-claim
       containers:
         - name: express-server
-          image: nickleezx/the_project:0.0.2
+          image: nickleezx/the_project:0.0.5
           env:
             - name: PORT
               value: "3002"
+            - name: FRONTEND_URL
+              value: "http://localhost:8081"
+        - name: frontend
+          image: nickleezx/the_project_fe:0.0.1
+
 
