@@ -137,3 +137,19 @@
 3. Update `deployment.yaml`, `service.yaml` and `ingress.yaml` found in [manifests](./manifests/)
 
 4. Verify by lanching `localhost:8081/file-content` and exec into file-reader-app container within pod to check if volume was mounted
+
+## Exercise 1.11
+
+**Instructions**: Let's share data between "Ping-pong" and "Log output" applications using persistent volumes. Create both a PersistentVolume and PersistentVolumeClaim and alter the Deployment to utilize it. As PersistentVolumes are often maintained by cluster administrators rather than developers and those are not application specific you should keep the definition for those separated, perhaps in own folder. Save the number of requests to the "Ping-pong" application into a file in the volume and output it with the timestamp and the random string when sending a request to our "Log output" application. In the end, the two pods should share a persistent volume between the two applications. So the browser should display the following when accessing the "Log output" application
+
+**Solution**:
+
+1. Update ping-pong app to save result to file. Found in [ping-pong-app](./ping-pong-app/)
+
+2. Update log_output app to read result from file. Found in [log_output](./log-output-app/)
+
+3. Create `persistentvolume.yaml`, `persistentvolumeclaim.yaml` (PVC) and update `deployment.yaml`
+
+4. Apply the new resources with `kubectl apply -f <relevant files>`
+
+5. Verify by launching `localhost:8081/pingpong` and `localhost:8081`

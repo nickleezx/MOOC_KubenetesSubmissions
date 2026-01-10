@@ -15,9 +15,12 @@ spec:
       volumes:
         - name: log-output-file
           emptyDir: {}
+        - name: ping-pong-pv
+          persistentVolumeClaim:
+            claimName: ping-pong-claim
       containers:
         - name: hashgenerator
-          image: nickleezx/log_output:0.0.5
+          image: nickleezx/log_output:0.0.7
           imagePullPolicy: IfNotPresent
           env:
             - name: PORT
@@ -25,6 +28,8 @@ spec:
           volumeMounts:
             - name: log-output-file
               mountPath: /usr/src/app/shared
+            - name: ping-pong-pv
+              mountPath: /usr/src/app/shared1
         - name: file-reader-app
           image: nickleezx/file-reader-app:0.0.8
           imagePullPolicy: IfNotPresent
@@ -50,10 +55,17 @@ spec:
       labels:
         app: ping-pong-app
     spec:
+      volumes:
+        - name: ping-pong-pv
+          persistentVolumeClaim:
+            claimName: ping-pong-claim
       containers:
         - name: ping-pong-app
-          image: nickleezx/ping-pong-app:0.0.1
+          image: nickleezx/ping-pong-app:0.0.3
           imagePullPolicy: IfNotPresent
           env:
             - name: PORT
               value: "3001"
+          volumeMounts:
+            - name: ping-pong-pv
+              mountPath: /usr/src/app/shared1
