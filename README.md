@@ -17,3 +17,4 @@ Submission of exercises for MOOC devops with Kubenetes course
 - [1.10](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/bc8c3b0fdc8208584a3ae51f27a1e0ec60632490/log_output)
 - [1.11](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/5300f453c19723c1ce090d43a233855399f84cb0/log_output)
 - [1.12](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/c758afff13db82912ab2d9bbce099e4ec98ef6ea/the_project)
+- [1.13](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/ae1bc1234598e4eb1e57a987a12567e601cb833e/the_project)
