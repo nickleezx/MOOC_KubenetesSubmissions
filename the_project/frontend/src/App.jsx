@@ -1,5 +1,6 @@
 import { use, Suspense } from 'react'
 import { getImagePromise } from './services/imageService'
+import { TodoList } from './components/TodoList'
 
 const ImageFromBackend = () => {
   const imageUrl = use(getImagePromise)
@@ -16,6 +17,7 @@ function App() {
       <Suspense fallback={<div>loading image...</div>}>
         <ImageFromBackend/>
       </Suspense>
+      <TodoList/>
     </>
   )
 }
