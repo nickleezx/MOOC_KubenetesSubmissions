@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
   res.send("ping pong application")
 })
 
-app.get('/pingpong', async (req, res) => {
+app.get('/api/pingpong', async (req, res) => {
   res.send(`pong ${pingCount}`)
   pingCount += 1
   await updatePingPongCount(pingCount)

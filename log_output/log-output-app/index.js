@@ -1,18 +1,50 @@
 import { v4 as uuidv4 } from "uuid";
-import http from "http";
+import axios from 'axios'
 import fs from "fs/promises";
 import path from "path";
+import express from 'express'
 
 const PORT = process.env.PORT || 3001;
 const LOG_DIR = path.join(process.cwd(), "shared");
 const LOG_FILE = path.join(LOG_DIR, "log_output.txt");
 const PING_PONG_FILE = path.join(LOG_DIR + "1", "ping-pong-requests.txt");
+const BASE_URL = process.env.BASE_URL || "http://localhost:8081/api/"
 
 try {
   await fs.mkdir(LOG_DIR, { recursive: true });
 } catch (err) {
   console.error("Could not create directory:", err);
 }
+
+const app = express()
+
+app.get('/', async (req, res) => {
+  try {
+    // Read ping counts from file
+    // const data = await fs.readFile(PING_PONG_FILE, "utf8").catch(() => "0");
+    // const pingCount = parseInt(data, 10) || 0;
+
+    // make http request to get ping count
+    const response = await axios.get(`${BASE_URL}/pingpong`);
+    const data = response.data
+    console.log("data:", data)
+    const pingCount = Number(data.split(" ")[1])
+    console.log("pingCount:", pingCount)
+
+    if (!pingCount) {
+      throw new Error('Failed to convert number of pings from str to int')
+    }
+
+    res.end(
+      `${new Date().toISOString()}: ${uuidv4()}\n Ping count: ${pingCount}`
+    );
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+
+
 
 const appendToFile = async (message) => {
   try {
@@ -28,21 +60,8 @@ setInterval(async () => {
   await appendToFile(`${message}`);
 }, 5000);
 
-const server = http.createServer(async (req, res) => {
-  try {
-    const data = await fs.readFile(PING_PONG_FILE, "utf8").catch(() => "0");
-    const pingCount = parseInt(data, 10) || 0;
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/plain");
 
-    res.end(
-      `${new Date().toISOString()}: ${uuidv4()}\n Ping count: ${pingCount}`
-    );
-  } catch (err) {
-    console.error(err);
-  }
-});
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
