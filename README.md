@@ -22,3 +22,4 @@ Submission of exercises for MOOC devops with Kubenetes course
 
 ### Chapter 3:
 - [2.1](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/c7a4859bfa083a1d8d159259df70b3d15087236e/log_output)
+- [2.2](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/6601d218df1c3aa364954e49183a004034d60463/the_project)
