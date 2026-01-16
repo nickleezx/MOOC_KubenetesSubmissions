@@ -19,20 +19,34 @@ spec:
         # - name: ping-pong-pv
         #   persistentVolumeClaim:
         #     claimName: ping-pong-claim
+        - name: log-output-config
+          configMap: 
+            name: log-output-config
+            items:
+              - key: information.txt
+                path: information.txt
       containers:
         - name: hashgenerator
-          image: nickleezx/log_output:0.0.8
+          image: nickleezx/log_output:0.0.9
           imagePullPolicy: IfNotPresent
           env:
             - name: PORT
               value: "3002"
             - name: BASE_URL
               value: http://ping-pong-svc:1234/api
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef: 
+                  name: log-output-config
+                  key: MESSAGE
           volumeMounts:
             - name: log-output-file
               mountPath: /usr/src/app/shared
             # - name: ping-pong-pv
             #   mountPath: /usr/src/app/shared1
+            - name: log-output-config
+              mountPath: /config
+              readOnly: true
         - name: file-reader-app
           image: nickleezx/file-reader-app:0.0.8
           imagePullPolicy: IfNotPresent

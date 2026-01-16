@@ -169,3 +169,16 @@
 2. Update `deployment.yaml`, `service.yaml`, `ingress.yaml`, `persistentvolumeclaim.yaml` to include namespace in **metadata** field
 
 3. Run `kubectl apply -f <path to file>`
+
+## Exercise 2.5
+
+**Instructions**:Create a ConfigMap for the "Log output" application. The ConfigMap should define one file information.txt and one env variable MESSAGE. The app should map the file as a volume, set the environment variable and print the content of those in addition to the usual output:
+
+**Solution**:
+
+1. Create the [configmap.yaml](./manifests/configmap.yaml) file
+2. Update log_ouput app to read the env variable and config file
+3. Deploy kubernetes resources including configmap
+4. Test at localhost:8081
+
+![Ex_2.5](./Ex2_5.png)

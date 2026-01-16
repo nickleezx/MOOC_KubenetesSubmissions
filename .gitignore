@@ -5,3 +5,8 @@
 
 # MacOs
 .DS_Store
+
+
+# Exercises specific
+**/shared1
+**/shared
