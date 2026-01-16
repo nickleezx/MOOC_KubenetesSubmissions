@@ -161,7 +161,7 @@
 
 **Solution**:
 
-1. Create `exercises` within the cluster
+1. Create `exercises` namespace within the cluster
     ```bash
     kubectl create namespace exercises
     ```

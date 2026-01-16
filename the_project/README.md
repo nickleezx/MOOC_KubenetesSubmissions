@@ -137,3 +137,18 @@
 3. Update kubernetes resources (`persistentvolumeclaim.yaml`, `deployment.yaml`, `ingress.yaml`, `service.yaml`)
 
 4. Deploy on cluster and test by going to `localhost:8081` and `localhost:8081/api/images. Stop the deployment pod and check after 10 minutes to see changes.
+
+## Exercise 2.4
+
+**Instructions**: Create a namespace called project for the project and move everything related to the project to that namespace. Use the new namespace in the future for all the project related exercises.
+
+**Solution**:
+
+1. Create `project` namespace within the cluster
+    ```bash
+    kubectl create namespace project
+    ```
+
+2. Update `deployment.yaml`, `service.yaml`, `ingress.yaml`, `persistentvolumeclaim.yaml` to include namespace in **metadata** field
+
+3. Run `kubectl apply -f <path to file>`
