@@ -153,3 +153,19 @@
 4. Apply the new resources with `kubectl apply -f <relevant files>`
 
 5. Verify by launching `localhost:8081/pingpong` and `localhost:8081`
+
+
+## Exercise 2.3
+
+**Instructions**: Create a namespace called exercises for the applications in the exercises. Move the "Log output" and "Ping-pong" to that namespace and use that in the future for all of the exercises, except the project that shall have a separate namespace. You can follow the course material using the default namespace.
+
+**Solution**:
+
+1. Create `exercises` within the cluster
+    ```bash
+    kubectl create namespace exercises
+    ```
+
+2. Update `deployment.yaml`, `service.yaml`, `ingress.yaml`, `persistentvolumeclaim.yaml` to include namespace in **metadata** field
+
+3. Run `kubectl apply -f <path to file>`
