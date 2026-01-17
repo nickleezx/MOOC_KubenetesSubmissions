@@ -18,7 +18,7 @@ try {
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
 const corsOptions = {
-  origin: FRONTEND_URL,
+  origin: [FRONTEND_URL],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true, // Required if you use cookies or sessions

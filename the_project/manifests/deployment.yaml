@@ -25,6 +25,12 @@ spec:
             - name: FRONTEND_URL
               value: "http://localhost:8081"
         - name: frontend
-          image: nickleezx/the_project_fe:0.0.4
+          image: nickleezx/the_project_fe:0.0.6
+          env:
+            - name: BACKEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: project-configmap
+                  key: BACKEND_URL
 
 

@@ -152,3 +152,15 @@
 2. Update `deployment.yaml`, `service.yaml`, `ingress.yaml`, `persistentvolumeclaim.yaml` to include namespace in **metadata** field
 
 3. Run `kubectl apply -f <path to file>`
+
+## Exercise 2.6
+
+**Instructions**: Make sure that your project has no hard coded ports, URL or other configurations in the source code. Pass all the configurations to pods as env variables that are defined either in a config map or in deployments.
+
+**Solution**:
+
+1. Update frontend such that it replaces the `BACKEND_URL` via entrypoint.sh, replacing the hardcoded string values in build files in `/dist` to the ENV variables passed via config map
+
+2. Create `configmap.yaml` and update `deployment.yaml` to use configmap
+
+3. Deploy and test
