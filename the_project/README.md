@@ -180,3 +180,25 @@
 4. Deploy and test
 
      4.1 (optional) Verify by executing into the kubectl pod and the psql statefulset to query the DB 
+
+## Exercise 2.9
+
+**Instructions**: Create a CronJob that generates a new todo every hour to remind you to do 'Read \<URL\>', here \<URL\> is a Wikipedia article that was decided by the job randomly. It does not have to be a hyperlink, the user can copy-paste the URL from the todo.
+
+**Solution**:
+
+1. Create a script that will make the api call to retrieve random url and make a POST request to the project backend
+
+2. Containerize the script and create a [cronjob.yaml](./manifests/cronjob.yaml)
+
+    2.1 Connect the [cronjob.yaml](./manifests/cronjob.yaml) with the configMap values
+
+3. Update configMap to contain service url of the project backend due to script being run in docker container (internal networking)
+
+4. Deploy and run.
+
+    4.1. To run manual test immediately:
+        
+      ```bash
+      kubectl create job --from=cronjob/create-todo-job test-run
+      ```

@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: create-todo-job
+  namespace: project
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: project-cron
+              image: nickleezx/the_project_cron:0.0.1
+              env:
+                - name: BACKEND_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: project-configmap
+                      key: KUBERNETES_BACKEND
+          restartPolicy: Never
