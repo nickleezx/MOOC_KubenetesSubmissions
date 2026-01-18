@@ -164,3 +164,19 @@
 2. Create `configmap.yaml` and update `deployment.yaml` to use configmap
 
 3. Deploy and test
+
+## Exercise 2.8
+
+**Instructions**: Create a database and save the todos there. Again, the database should be defined as a stateful set with one replica.
+
+**Solution**:
+
+1. Create `statefulset.yaml` with stateful set and its headless service
+
+    1.1. Create the necessary secret.yaml (*not commited to version control*) that postgres and our app uses for administration (user, password, database)
+
+2. Update [project backend](./backend/) to connect to database
+3. Update [deployment](./manifests/deployment.yaml) of project to use env variables from secret and database connection configuration
+4. Deploy and test
+
+     4.1 (optional) Verify by executing into the kubectl pod and the psql statefulset to query the DB 

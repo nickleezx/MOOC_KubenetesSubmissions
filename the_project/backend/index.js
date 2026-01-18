@@ -4,6 +4,8 @@ import axios from "axios";
 import cors from "cors";
 import fs from "fs/promises";
 import { existsSync, createWriteStream } from "fs";
+import initDatabase from "./database/initdb.js";
+import pool from "./config/database.js";
 
 const PORT = process.env.PORT || 3001;
 const VOLUME_DIR = path.join(process.cwd(), "images");
@@ -72,18 +74,34 @@ app.get("/api/image", async (req, res) => {
   }
 });
 
-const todoNotes = ["Learn Javascript", "Learn React", "Build a project"];
+// const todoNotes = ["Learn Javascript", "Learn React", "Build a project"];
 
-app.get("/api/todo", (req, res) => {
-  res.json(todoNotes);
+app.get("/api/todo", async (req, res) => {
+  const { rows } = await pool.query("SELECT title FROM todos");
+  res.json(rows.map(row => row.title));
 });
 
-app.post("/api/todo", (req, res) => {
+app.post("/api/todo", async (req, res) => {
   const { title } = req.body;
-  todoNotes.push(title)
-  res.json(todoNotes)
+  
+  await pool.query("INSERT INTO todos (title) VALUES ($1)", [title]);
+  const { rows } = await pool.query("SELECT title FROM todos");
+  
+  res.json(rows.map(row => row.title));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server started in port ${PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`Server started in port ${PORT}`);
+// });
+
+process.on('SIGINT', async () => {
+  console.log('Shutting down...');
+  await pool.end();
+  process.exit(0);
 });
+
+initDatabase().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Project backend server started in port ${PORT}`)
+  })
+}).catch(err => console.error('Failed to initialise database', err))

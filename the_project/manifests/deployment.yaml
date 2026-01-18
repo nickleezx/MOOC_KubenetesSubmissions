@@ -18,7 +18,12 @@ spec:
       #       claimName: the-project-claim
       containers:
         - name: express-server
-          image: nickleezx/the_project:0.0.6
+          image: nickleezx/the_project:0.0.8
+          envFrom:
+            - secretRef:
+                name: project-secret
+            - configMapRef:
+                name: project-configmap
           env:
             - name: PORT
               value: "3002"

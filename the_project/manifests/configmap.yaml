@@ -5,3 +5,5 @@ metadata:
   namespace: project
 data:
   BACKEND_URL: http://localhost:8081/api
+  POSTGRES_PORT: "5432"
+  POSTGRES_HOST: postgres-stset-0.postgres-svc
