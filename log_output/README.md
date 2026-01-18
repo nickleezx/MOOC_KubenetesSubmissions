@@ -182,3 +182,18 @@
 4. Test at localhost:8081
 
 ![Ex_2.5](./Ex2_5.png)
+
+## Exercise 2.7
+
+**Instructions**: Run a Postgres database as a stateful set (with oen replica) and save the Ping-pong application counter into the database.
+
+**Solution**:
+
+1. Create `statefulset.yaml` with stateful set and its headless service
+
+    1.1. Create the necessary secret.yaml (*not commited to version control*) that postgres and our app uses for administration (user, password, database)
+2. Update [ping pong app](./ping-pong-app/) to connect to database
+3. Update [deployment](./manifests/deployment.yaml) of ping-pong-app to use env variables from secret and database connection configuration
+4. Deploy and test
+
+     4.1 (optional) Verify by executing into the kubectl pod and the psql statefulset to query the DB 

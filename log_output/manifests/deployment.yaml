@@ -79,11 +79,18 @@ spec:
       #       claimName: ping-pong-claim
       containers:
         - name: ping-pong-app
-          image: nickleezx/ping-pong-app:0.0.4
+          image: nickleezx/ping-pong-app:0.0.6
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: ping-pong-secret
           env:
             - name: PORT
               value: "3001"
+            - name: POSTGRES_HOST
+              value: postgres-stset-0.postgres-svc
+            - name: POSTGRES_PORT
+              value: "5432"
           # volumeMounts:
           #   - name: ping-pong-pv
           #     mountPath: /usr/src/app/shared1
