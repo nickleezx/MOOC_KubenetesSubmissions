@@ -6,6 +6,7 @@ import fs from "fs/promises";
 import { existsSync, createWriteStream } from "fs";
 import initDatabase from "./database/initdb.js";
 import pool from "./config/database.js";
+import { requestLogger } from "./logger/logger.js";
 
 const PORT = process.env.PORT || 3001;
 const VOLUME_DIR = path.join(process.cwd(), "images");
@@ -76,12 +77,12 @@ app.get("/api/image", async (req, res) => {
 
 // const todoNotes = ["Learn Javascript", "Learn React", "Build a project"];
 
-app.get("/api/todo", async (req, res) => {
+app.get("/api/todo", requestLogger, async (req, res) => {
   const { rows } = await pool.query("SELECT title FROM todos");
   res.json(rows.map(row => row.title));
 });
 
-app.post("/api/todo", async (req, res) => {
+app.post("/api/todo", requestLogger, async (req, res) => {
   const { title } = req.body;
   
   await pool.query("INSERT INTO todos (title) VALUES ($1)", [title]);
@@ -89,6 +90,12 @@ app.post("/api/todo", async (req, res) => {
   
   res.json(rows.map(row => row.title));
 });
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  res.status(statusCode).json({ error: err.message });
+});
+
 
 // app.listen(PORT, () => {
 //   console.log(`Server started in port ${PORT}`);

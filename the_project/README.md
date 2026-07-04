@@ -202,3 +202,21 @@
       ```bash
       kubectl create job --from=cronjob/create-todo-job test-run
       ```
+
+## Exercise 2.10
+
+**Instructions**: The project could really use logging.
+
+Add request logging so that you can monitor every todo that is sent to the backend.
+
+Set the limit of 140 characters for todos in the backend as well. Use Postman or curl to test that too long todos are blocked by the backend, and you can see the non-allowed messages in your Grafana.
+
+**Solution**: 
+
+1. Create [logger.js](./backend/logger/logger.js) in backend to log requests made to /api/todo endpoint and to check for character limit
+2. Build & import docker image into k3d cluster
+3. Reapply deployment manifest
+
+    ```bash 
+    kubectl apply -f manifests/deployment.yaml
+    ```
