@@ -227,3 +227,13 @@ Note that Ingress expects a service to give a successful response in the path / 
 1. Update [service.yaml](./manifests/service.yaml) to use `NodePort`
 2. Reapply `deployment.yaml`, `service.yaml` and apply `ingress.yaml`
 3. Verify working by using external ip of ingress at `/` and `api/pingpong`
+
+## Exercise 3.3
+
+**Instructions**: Replace the Ingress with Gateway API in the "Log output" and "Ping-pong" applications. See here for more about HTTP routing.
+
+**Solution**:
+
+1. Create [gateway.yaml](./manifests/gateway.yaml) and [route.yaml](./manifests/route.yaml)
+2. Update [service.yaml](./manifests/service.yaml) to use `ClusterIP` instead of `NodePort`
+3. Delete service, apply gateway & route
