@@ -237,3 +237,20 @@ Note that Ingress expects a service to give a successful response in the path / 
 1. Create [gateway.yaml](./manifests/gateway.yaml) and [route.yaml](./manifests/route.yaml)
 2. Update [service.yaml](./manifests/service.yaml) to use `ClusterIP` instead of `NodePort`
 3. Delete service, apply gateway & route
+
+## Exercise 3.4
+
+**Instructions**: Your ping-pong app now most likely needs to respond to the URL /pingpong to work in the cluster setup. It would be nice if we were not forced to reflect the cluster-level URL structures in the applications, and instead, the app itself could provide the behavior in the root path /. Thanks to the flexibility of the Gateway API, this can be easily done by route rewriting.
+
+Make this change to your ping-pong app and to the HTTP route!
+
+**Solution**: 
+
+1. Update pingpong app to return requests to `/` instead of `/api/pingpong`
+2. Use path rewrite on [route.yaml](./manifests/route.yaml)
+3. Update [deployment.yaml](./manifests/deployment.yaml) to use new image
+4. Apply manifests & verify at \<external-ip\>/api/pingpong
+    - possible to test by portforwarding the service to a local port
+      ```bash
+      kubectl port-forward svc/ping-pong-svc 8080:1234 -n exercises
+      ```

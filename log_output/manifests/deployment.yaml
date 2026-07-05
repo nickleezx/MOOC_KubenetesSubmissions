@@ -79,7 +79,7 @@ spec:
       #       claimName: ping-pong-claim
       containers:
         - name: ping-pong-app
-          image: nickleezx/ping-pong-app:0.0.7
+          image: nickleezx/ping-pong-app:0.0.8
           imagePullPolicy: Always
           envFrom:
             - secretRef:

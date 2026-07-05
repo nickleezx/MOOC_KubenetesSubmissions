@@ -27,11 +27,11 @@ const PORT = process.env.PORT || 3001
 // const data = await fs.readFile(LOG_FILE, "utf8").catch(() => "0");
 // let pingCount = parseInt(data, 10) || 0;
 
-app.get('/', (req, res) => {
-  res.send("ping pong application")
-})
+// app.get('/', (req, res) => {
+//   res.send("ping pong application")
+// })
 
-app.get('/api/pingpong', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
   const query = `
     INSERT INTO ping_pong_request (id, count) 

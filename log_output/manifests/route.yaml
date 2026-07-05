@@ -11,6 +11,12 @@ spec:
     - path:
         type: PathPrefix
         value: /api/pingpong
+    filters:
+      - type: URLRewrite
+        urlRewrite:
+          path:
+            type: ReplacePrefixMatch
+            replacePrefixMatch: /
     backendRefs:
     - name: ping-pong-svc
       port: 1234
