@@ -213,3 +213,17 @@ In this exercise use a LoadBalancer service to expose the service.
     - [service.yaml](./manifests/service.yaml)
     - [statefulset.yaml](./manifests/statefulset.yaml)
 3. Verify on external ip of service 
+
+## Exercise 3.2
+
+**Instructions**: Deploy the "Log output" and "Ping-pong" applications into GKE and expose it with Ingress.
+
+"Ping-pong" will have to respond from /pingpong path. This may require you to rewrite parts of the code.
+
+Note that Ingress expects a service to give a successful response in the path / even if the service is mapped to some other path!
+
+**Solution**:
+
+1. Update [service.yaml](./manifests/service.yaml) to use `NodePort`
+2. Reapply `deployment.yaml`, `service.yaml` and apply `ingress.yaml`
+3. Verify working by using external ip of ingress at `/` and `api/pingpong`

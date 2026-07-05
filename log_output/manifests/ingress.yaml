@@ -14,13 +14,13 @@ spec:
                 name: ping-pong-svc
                 port:
                   number: 1234
-          - path: /file-content
-            pathType: Prefix
-            backend:
-              service:
-                name: hashgenerator-svc
-                port:
-                  number: 2345
+          # - path: /file-content
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: hashgenerator-svc
+          #       port:
+          #         number: 2345
           - path: /
             pathType: Exact
             backend:
