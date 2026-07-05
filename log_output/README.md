@@ -197,3 +197,19 @@
 4. Deploy and test
 
      4.1 (optional) Verify by executing into the kubectl pod and the psql statefulset to query the DB 
+
+## Exercise 3.1
+
+**Instructions** Deploy Ping-pong application into GKE.
+
+In this exercise use a LoadBalancer service to expose the service.
+
+**Solution**:
+
+1. Update [service.yaml](./manifests/service.yaml) to use `LoadBalancer`
+2. Setup GKE on Google Cloud and apply manifests
+    - [deployment.yaml](./manifests/deployment.yaml)
+    - [secret.yaml](./manifests/secret.yaml)
+    - [service.yaml](./manifests/service.yaml)
+    - [statefulset.yaml](./manifests/statefulset.yaml)
+3. Verify on external ip of service 

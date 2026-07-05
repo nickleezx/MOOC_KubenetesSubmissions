@@ -1,4 +1,4 @@
-FROM node:20-slim
+FROM node:22-slim
 
 # 1. Install pnpm globally
 RUN corepack enable && corepack prepare pnpm@latest --activate
