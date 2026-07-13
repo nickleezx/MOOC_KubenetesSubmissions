@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: create-todo-job
-  namespace: project
 spec:
   schedule: "0 * * * *"
   jobTemplate:
@@ -11,7 +10,7 @@ spec:
         spec:
           containers:
             - name: project-cron
-              image: nickleezx/the_project_cron:0.0.1
+              image: PROJECT/CRONJOB
               env:
                 - name: BACKEND_URL
                   valueFrom:

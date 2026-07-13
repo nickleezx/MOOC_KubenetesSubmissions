@@ -220,3 +220,13 @@ Set the limit of 140 characters for todos in the backend as well. Use Postman or
     ```bash 
     kubectl apply -f manifests/deployment.yaml
     ```
+
+## Exercise 3.5
+
+**Instructions**: Configure the project to use Kustomize, and deploy it to Google Kubernetes Engine.
+
+**Solution**: 
+
+1. Create `kustomization.yaml`
+2. Update `deployment.yaml, configmap.yaml, cronjob.yaml` to match kustomization injection
+3. Deploy onto GKE and test

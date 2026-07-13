@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: project
+resources:
+  - manifests/configmap.yaml
+  - manifests/secret.yaml
+  - manifests/statefulset.yaml
+  - manifests/service.yaml
+  - manifests/ingress.yaml
+  - manifests/deployment.yaml
+  - manifests/cronjob.yaml
+images:
+  - name: PROJECT/BACKEND
+    newName: nickleezx/the_project
+    newTag: "0.0.11"
+  - name: PROJECT/FRONTEND
+    newName: nickleezx/the_project_fe
+    newTag: "0.0.6"
+  - name: PROJECT/CRONJOB
+    newName: nickleezx/the_project_cron
+    newTag: "0.0.1"
