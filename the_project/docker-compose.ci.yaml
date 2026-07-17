@@ -1,0 +1,19 @@
+# Used by CI (GitHub Actions) to build & push all three images in one shot.
+# TAG is injected by the workflow (e.g. main-<sha>).
+# REGISTRY_PREFIX lets you swap between Artifact Registry / Docker Hub without editing this file.
+
+services:
+  backend:
+    image: ${REGISTRY_PREFIX}/the_project:${TAG}
+    build:
+      context: ./backend
+
+  frontend:
+    image: ${REGISTRY_PREFIX}/the_project_fe:${TAG}
+    build:
+      context: ./frontend
+
+  cron:
+    image: ${REGISTRY_PREFIX}/the_project_cron:${TAG}
+    build:
+      context: ./cron

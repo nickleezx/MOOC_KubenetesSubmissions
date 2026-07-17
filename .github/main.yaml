@@ -1,0 +1,78 @@
+name: Release application
+
+on:
+  push:
+    paths:
+      - "the_project/**"
+      - ".github/**"
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  REGISTRY: europe-north1-docker.pkg.dev
+  REPOSITORY: mooc-devops-gke
+  IMAGE_PREFIX: the_project # backend => $IMAGE_PREFIX, frontend => ${IMAGE_PREFIX}_fe, cron => ${IMAGE_PREFIX}_cron
+  SERVICE: the-project-dep  # matches metadata.name in manifests/deployment.yaml
+  BRANCH: ${{ github.ref_name }}
+
+jobs:
+  build-publish-deploy:
+    name: Build, publish and deploy
+    runs-on: ubuntu-latest
+    environment: GKE_PROJECT
+    defaults:
+      run:
+        working-directory: the_project
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+          service_account: "${{ secrets.SERVICE_ACCOUNT }}"
+
+      - name: "Set up Cloud SDK"
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: "Use gcloud CLI"
+        run: gcloud info
+
+      - run: gcloud --quiet auth configure-docker $REGISTRY
+
+      - name: "Get GKE credentials"
+        uses: "google-github-actions/get-gke-credentials@v3"
+        with:
+          cluster_name: "${{ env.GKE_CLUSTER }}"
+          project_id: "${{ env.PROJECT_ID }}"
+          location: "${{ env.GKE_ZONE }}"
+
+      - name: Compute image tag / registry prefix
+        run: |
+          echo "TAG=$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+          echo "REGISTRY_PREFIX=$REGISTRY/$PROJECT_ID/$REPOSITORY" >> $GITHUB_ENV
+
+      - name: Build all images (backend, frontend, cron)
+        run: docker compose -f docker-compose.ci.yaml build
+
+      - name: Publish all images
+        run: docker compose -f docker-compose.ci.yaml push
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v3
+
+      - name: Deploy
+        run: |-
+          kustomize edit set image \
+            PROJECT/BACKEND=$REGISTRY_PREFIX/${IMAGE_PREFIX}:$TAG \
+            PROJECT/FRONTEND=$REGISTRY_PREFIX/${IMAGE_PREFIX}_fe:$TAG \
+            PROJECT/CRONJOB=$REGISTRY_PREFIX/${IMAGE_PREFIX}_cron:$TAG
+          kustomize build . | kubectl apply -f -
+          kubectl rollout status deployment $SERVICE
+          kubectl get services -o wide
