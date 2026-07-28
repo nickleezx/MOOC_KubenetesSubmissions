@@ -40,3 +40,4 @@ Submission of exercises for MOOC devops with Kubenetes course
 - [3.5](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/e0d383277e484c69175e586bb23c4ddda7fd7b76/the_project)
 - [3.6](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/7c0eb0d2f5a1addc1e87368d3d9068c7bb9879b4/the_project)
 - [3.7](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/47805b07e1950a217afb880deb3f49ee3c8869ab/the_project)
+- [3.8](https://github.com/nickleezx/MOOC_KubenetesSubmissions/blob/30b5de7f34d45d4f37bd6d6922eb25819d17b82a/.github/workflows/cleanup.yml)
