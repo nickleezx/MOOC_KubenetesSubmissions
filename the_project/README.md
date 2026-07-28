@@ -252,3 +252,13 @@ Your solution may assume that branches are named so that they are valid namespac
 1. Update `main.yml` workflow to use branch refs & create namespaces
 2. Run the workflow in branch
 3. Verify namespace with deployments created
+
+## Exercise 3.8
+
+**Instructions**: Finally, create a new workflow so that deleting a branch deletes the environment.
+
+**Solution**:
+
+1. Create [cleanup.yml](../.github/workflows/cleanup.yml) to delete namespace on branch delete
+2. Run the workflow by deleting branch
+3. Verify namespace is deleted along with resources
