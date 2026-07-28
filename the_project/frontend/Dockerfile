@@ -1,15 +1,12 @@
 FROM node:22-slim
 
-# Enable pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-
 WORKDIR /usr/src/app
 
 COPY . .
 
-RUN pnpm install --frozen-lockfile
+RUN npm ci
 
-RUN pnpm run build
+RUN npm run build
 
 COPY entrypoint.sh /entrypoint.sh
 
@@ -20,4 +17,4 @@ RUN chmod +x /entrypoint.sh
 # The script will then finish by running the CMD (Nginx).
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["pnpm", "preview", "--host"]
+CMD ["npm", "run", "preview", "--", "--host"]
