@@ -3,7 +3,9 @@ kind: Kustomization
 namespace: project
 resources:
   - manifests/configmap.yaml
-  - manifests/secret.yaml
+  # secret.yaml is intentionally NOT listed here — it's git-ignored (contains
+  # credentials). CI creates the `project-secret` Secret imperatively via
+  # `kubectl create secret --from-literal=...` before running `kustomize build`.
   - manifests/statefulset.yaml
   - manifests/service.yaml
   - manifests/ingress.yaml
