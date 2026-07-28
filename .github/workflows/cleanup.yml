@@ -1,0 +1,56 @@
+name: Cleanup branch namespace
+
+# Fires when a branch (or tag) is deleted in this repo.
+# NOTE: `delete` only triggers workflows that exist on the DEFAULT branch (main).
+on:
+  delete
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+
+jobs:
+  cleanup:
+    name: Delete namespace for deleted branch
+    # Only act on branch deletions, ignore tag deletions.
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    environment: GKE_PROJECT
+
+    steps:
+      - name: Show what was deleted
+        run: |
+          echo "ref_type: ${{ github.event.ref_type }}"
+          echo "ref:      ${{ github.event.ref }}"
+
+      - uses: google-github-actions/auth@v3
+        with:
+          project_id: "${{ env.PROJECT_ID }}"
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+          service_account: "${{ secrets.SERVICE_ACCOUNT }}"
+
+      - name: "Set up Cloud SDK"
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: "${{ env.PROJECT_ID }}"
+
+      - name: "Get GKE credentials"
+        uses: "google-github-actions/get-gke-credentials@v3"
+        with:
+          cluster_name: "${{ env.GKE_CLUSTER }}"
+          project_id: "${{ env.PROJECT_ID }}"
+          location: "${{ env.GKE_ZONE }}"
+
+      - name: Delete namespace
+        run: |
+          BRANCH="${{ github.event.ref }}"
+          echo "Deleting namespace: $BRANCH"
+          # --ignore-not-found: don't fail if the namespace was never created (e.g. build failed before deploy).
+          # --wait=true (default): block until finalizers complete, so PVCs get cleaned up before we exit.
+          kubectl delete namespace "$BRANCH" --ignore-not-found=true --wait=true
+          echo "Cleanup complete."
