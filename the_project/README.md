@@ -230,3 +230,25 @@ Set the limit of 140 characters for todos in the backend as well. Use Postman or
 1. Create `kustomization.yaml`
 2. Update `deployment.yaml, configmap.yaml, cronjob.yaml` to match kustomization injection
 3. Deploy onto GKE and test
+
+## Exercise 3.6
+
+**Instructions**: Setup automatic deployment for the project as well.
+
+**Solution**:
+
+1. Create `main.yml` workflow
+2. Run the workflow
+3. Verify deployed app via ingress
+
+## Exercise 3.7
+
+**Instructions**: Improve the deployment so that each branch creates a separate environment. The main branch should still be deployed in the namespace project.
+
+Your solution may assume that branches are named so that they are valid namespace names.
+
+**Solution**:
+
+1. Update `main.yml` workflow to use branch refs & create namespaces
+2. Run the workflow in branch
+3. Verify namespace with deployments created
