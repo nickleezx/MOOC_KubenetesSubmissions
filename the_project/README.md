@@ -230,3 +230,13 @@ Set the limit of 140 characters for todos in the backend as well. Use Postman or
 1. Create `kustomization.yaml`
 2. Update `deployment.yaml, configmap.yaml, cronjob.yaml` to match kustomization injection
 3. Deploy onto GKE and test
+
+## Exercise 3.6
+
+**Instructions**: Setup automatic deployment for the project as well.
+
+**Solution**:
+
+1. Create `main.yml` workflow
+2. Run the workflow
+3. Verify deployed app via ingress
