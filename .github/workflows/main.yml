@@ -35,11 +35,14 @@ jobs:
 
       - uses: google-github-actions/auth@v3
         with:
+          project_id: "${{ env.PROJECT_ID }}"
           workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
           service_account: "${{ secrets.SERVICE_ACCOUNT }}"
 
       - name: "Set up Cloud SDK"
         uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: "${{ env.PROJECT_ID }}"
 
       - name: "Use gcloud CLI"
         run: gcloud info
