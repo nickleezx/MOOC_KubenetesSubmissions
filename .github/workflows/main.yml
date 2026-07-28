@@ -17,7 +17,7 @@ env:
   REGISTRY: europe-north1-docker.pkg.dev
   REPOSITORY: mooc-devops-gke
   IMAGE_PREFIX: the_project # backend => $IMAGE_PREFIX, frontend => ${IMAGE_PREFIX}_fe, cron => ${IMAGE_PREFIX}_cron
-  SERVICE: the-project-dep  # matches metadata.name in manifests/deployment.yaml
+  SERVICE: the-project-dep # matches metadata.name in manifests/deployment.yaml
   BRANCH: ${{ github.ref_name }}
 
 jobs:
