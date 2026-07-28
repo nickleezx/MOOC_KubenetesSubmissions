@@ -91,5 +91,5 @@ jobs:
             PROJECT/FRONTEND=$REGISTRY_PREFIX/${IMAGE_PREFIX}_fe:$TAG \
             PROJECT/CRONJOB=$REGISTRY_PREFIX/${IMAGE_PREFIX}_cron:$TAG
           kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment $SERVICE
-          kubectl get services -o wide
+          kubectl -n project rollout status deployment $SERVICE
+          kubectl -n project get services -o wide
