@@ -18,3 +18,74 @@ spec:
                       name: project-configmap
                       key: KUBERNETES_BACKEND
           restartPolicy: Never
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-job
+spec:
+  schedule: "0 0 * * *" # every midnight (once per 24h)
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: backup-cronjob
+              image: google/cloud-sdk:slim
+              imagePullPolicy: IfNotPresent
+              command: ["/bin/bash", "/scripts/backup.sh"]
+              env:
+                # Point gcloud/gsutil at the mounted service-account key
+                - name: GOOGLE_APPLICATION_CREDENTIALS
+                  value: /var/secrets/google/key.json
+                # DB connection info from configmap
+                - name: POSTGRES_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      name: project-configmap
+                      key: POSTGRES_HOST
+                - name: POSTGRES_PORT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: project-configmap
+                      key: POSTGRES_PORT
+                - name: GCS_BUCKET
+                  valueFrom:
+                    configMapKeyRef:
+                      name: project-configmap
+                      key: GCS_BUCKET
+                # DB credentials from the existing project-secret
+                - name: POSTGRES_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: project-secret
+                      key: POSTGRES_USER
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: project-secret
+                      key: POSTGRES_PASSWORD
+                - name: POSTGRES_DB
+                  valueFrom:
+                    secretKeyRef:
+                      name: project-secret
+                      key: POSTGRES_DB
+              volumeMounts:
+                - name: script
+                  mountPath: /scripts
+                - name: gcp-sa-key
+                  mountPath: /var/secrets/google
+                  readOnly: true
+          volumes:
+            - name: script
+              configMap:
+                name: backup-script
+                defaultMode: 0755
+            - name: gcp-sa-key
+              secret:
+                secretName: storage-sa-key
