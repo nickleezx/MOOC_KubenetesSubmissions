@@ -2,8 +2,8 @@ name: Cleanup branch namespace
 
 # Fires when a branch (or tag) is deleted in this repo.
 # NOTE: `delete` only triggers workflows that exist on the DEFAULT branch (main).
-on:
-  delete
+# on:
+#   delete
 
 permissions:
   contents: read
