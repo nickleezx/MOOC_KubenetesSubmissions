@@ -262,3 +262,34 @@ Your solution may assume that branches are named so that they are valid namespac
 1. Create [cleanup.yml](../.github/workflows/cleanup.yml) to delete namespace on branch delete
 2. Run the workflow by deleting branch
 3. Verify namespace is deleted along with resources
+
+## Exercise 3.9
+
+**Instructions**: Do a pros/cons comparison of the solutions in terms of meaningful differences. This includes at least the required work and costs to initialize, as well as the maintenance. Backup methods and their ease of usage should be considered as well.
+
+**Answer**:
+
+### DBaaS:
+**Pros:**
+
+- Easy setup
+- Provider handles backups, patches, security
+- Flexible scaling based on traffic / usage
+- Managed fault tolerance, i.e simple to setup duplicates in another region
+
+**Cons:**
+- Lesser control of DB
+- More expensive than DIY
+- Limited to options provided by the provider
+
+### DIY:
+
+**Pros:**
+- Full control over DB (version, DB type, DB engine)
+- Easily control automations of DB
+- Avoids vendor lock-in on DB types
+
+**Cons:**
+- network attached volumes can cause increased latency 
+- Increased complexity for scaling and failure recovery
+- Manually maintain backups
