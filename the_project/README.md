@@ -293,3 +293,13 @@ Your solution may assume that branches are named so that they are valid namespac
 - network attached volumes can cause increased latency 
 - Increased complexity for scaling and failure recovery
 - Manually maintain backups
+
+## Exercise 3.10
+
+**Instructions**:Create now a CronJob that makes a backup of your todo database (once per 24 hours) and saves it to Google Object Storage.
+
+**Solution**:
+
+1. Create [CronJob](./manifests/cronjob.yaml)  that runs every 24 hours that runs pg_dump and uploads to Google Cloud Storage and [ConfigMap](./manifests/configmap.yaml) that defines the script to run
+2. Deploy the cluster & application, manually trigger the cronjob
+3. Verify that the backup file was uploaded to GCS
