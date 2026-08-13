@@ -310,3 +310,19 @@ Your solution may assume that branches are named so that they are valid namespac
 
 **Solution**: 
 1. Update [deployment.yaml](./manifests/deployment.yaml) with `resources` for each container setting the `requests` and `limits`
+
+
+## Exercise 3.12
+
+**Instructions**: GKE includes monitoring systems already so we can just enable the monitoring.
+
+Read the documentation for Kubernetes Engine Monitoring here(opens in a new tab). Find out how to find the application logs for the project in GKE.
+
+Add to your repository a picture of the logs when a new todo is created.
+
+**Solution**:
+
+1. Deploy project onto the cluster
+2. Go to Logs Explorer in GCloud console
+3. Search for project label
+![Ex_3.12](./Ex3_12.png)
