@@ -303,3 +303,10 @@ Your solution may assume that branches are named so that they are valid namespac
 1. Create [CronJob](./manifests/cronjob.yaml)  that runs every 24 hours that runs pg_dump and uploads to Google Cloud Storage and [ConfigMap](./manifests/configmap.yaml) that defines the script to run
 2. Deploy the cluster & application, manually trigger the cronjob
 3. Verify that the backup file was uploaded to GCS
+
+## Exercise 3.11
+
+**Instructions**: Set sensible resource requests and limits for the project. The exact values are not important. Just test what works. You may find the command kubectl top pods useful.
+
+**Solution**: 
+1. Update [deployment.yaml](./manifests/deployment.yaml) with `resources` for each container setting the `requests` and `limits`
