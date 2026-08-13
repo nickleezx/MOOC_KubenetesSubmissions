@@ -3,7 +3,8 @@ kind: ConfigMap
 metadata:
   name: project-configmap
 data:
-  BACKEND_URL: http://localhost:8081/api
+  # BACKEND_URL: http://localhost:8081/api
+  BACKEND_URL: /api
   KUBERNETES_BACKEND: http://the-project-svc:1234/api/todo
   POSTGRES_PORT: "5432"
   POSTGRES_HOST: postgres-stset-0.postgres-svc

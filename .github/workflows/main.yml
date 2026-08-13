@@ -1,10 +1,10 @@
 name: Release application
 
-# on:
-#   # push:
-#     # paths:
-#     #   - "the_project/**"
-#     #   - ".github/**"
+on:
+  push:
+    paths:
+      - "the_project/**"
+      - ".github/**"
 
 permissions:
   contents: read
