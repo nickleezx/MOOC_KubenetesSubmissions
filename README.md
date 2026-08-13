@@ -44,3 +44,4 @@ Submission of exercises for MOOC devops with Kubenetes course
 - [3.9](https://github.com/nickleezx/MOOC_KubenetesSubmissions/blob/7f15732ac54b6a0acd83d32c88e9ba9ec9e57f53/the_project/README.md)
 - [3.10](https://github.com/nickleezx/MOOC_KubenetesSubmissions/tree/eafc25b417870fb581fb60eee28592408bfe9ca7/the_project/manifests)
 - [3.11](https://github.com/nickleezx/MOOC_KubenetesSubmissions/blob/95180221845416196ceb7e8f96380f0138b6f983/the_project/manifests/deployment.yaml)
+- [3.12](https://github.com/nickleezx/MOOC_KubenetesSubmissions/blob/b9cbedb3c7232e71ad2b4e5fa586fed2881a0dca/the_project/Ex3_12.png)
